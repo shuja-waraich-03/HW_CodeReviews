@@ -4,37 +4,53 @@ import java.util.LinkedList;
 
 public class Main {		
   
+
+  //LINKED List is not the best data structure for this task.
   public static void addPatient(Person p, LinkedList<Person> user){
     if (!(user.contains(p)))
       user.addLast(p);
   } 
 
-  public static void PrintInContact(LinkedList<Person> user){ 
-    System.out.println("IDs of people in quarantine: ");
-    for (int i = 0; i<user.size(); i++){
-      if (user.get(i).status.equals("yellow")){
-        System.out.println(user.get(i).ID);
-      }
-    }
-  } 
 
-  public static void PrintTestedPositive(LinkedList<Person> user){
-    System.out.println("IDs of people who tested positive: ");
-    for (int i = 0; i<user.size(); i++){
-      if (user.get(i).status.equals("red")){
-        System.out.println(user.get(i).ID);
-      }
-    } 
-  } 
+  //Print method can be consolidated into one method
 
-  public static void PrintCovidFree(LinkedList<Person> user){
-    System.out.println("IDs of people out of quarantine: ");
-    for (int i = 0; i<user.size(); i++){
-      if (user.get(i).status.equals("green")){
-        System.out.println(user.get(i).ID);
+  public static void printByStatus(LinkedList<Person> users, String status) {
+    System.out.println("IDs of people with status " + status + ":");
+    for (Person p : users) {
+        if (p.status.equals(status)) {
+            System.out.println(p.ID);
+        }
       }
-    } 
-  } 
+  }
+
+  // public static void PrintInContact(LinkedList<Person> user){ 
+  //   System.out.println("IDs of people in quarantine: ");
+  //   for (int i = 0; i<user.size(); i++){
+  //     if (user.get(i).status.equals("yellow")){
+  //       System.out.println(user.get(i).ID);
+  //     }
+  //   }
+  // } 
+
+  // public static void PrintTestedPositive(LinkedList<Person> user){
+  //   System.out.println("IDs of people who tested positive: ");
+  //   for (int i = 0; i<user.size(); i++){
+  //     if (user.get(i).status.equals("red")){
+  //       System.out.println(user.get(i).ID);
+  //     }
+  //   } 
+  // } 
+
+  // public static void PrintCovidFree(LinkedList<Person> user){
+  //   System.out.println("IDs of people out of quarantine: ");
+  //   for (int i = 0; i<user.size(); i++){
+  //     if (user.get(i).status.equals("green")){
+  //       System.out.println(user.get(i).ID);
+  //     }
+  //   } 
+  // } 
+
+
   public static void GetNumQuarantine(LinkedList<Person> user){
     System.out.print("Number of people in quarantine: ");
     int isolated = 0;
@@ -89,17 +105,20 @@ public class Main {
         // Patient 4 tested positive
         HasCovid(Patient4);
 
-        // print all in quarantine
-        PrintInContact(users);
+        // // print all in quarantine
+        // PrintInContact(users);
+        printByStatus(users, "yellow");
 
-        // print yellow group
-        PrintInContact(users); 
+        // // print yellow group
+        // PrintInContact(users);
+        printByStatus(users, "red");  
         
-        // print red group
-        PrintTestedPositive(users);
+        // // print red group
+        // PrintTestedPositive(users);
+        printByStatus(users, "green");
 
-        // print green group
-        PrintCovidFree(users); 
+        // // print green group
+        // PrintCovidFree(users); 
 
         // print number of people in quarantine
         GetNumQuarantine(users); 

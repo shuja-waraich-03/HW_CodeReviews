@@ -18,26 +18,37 @@ public class User {
         this.lastName = lastName;
     } 
     
-    //this is following other users
+    // Method to follow another user, also updates the followers list of the user being followed
     public void follow(User u) {
-        if(!following.contains(u)) {
+        if (u == null) return; // Check for null to prevent NullPointerException
+        if (!following.contains(u)) {
             following.add(u);
             followingCount++;
-            u.followerCount++;
+            u.addFollower(this); // Proper encapsulation by invoking method to add follower
+        }
+    }
+    // Private method to add a follower, maintains encapsulation and data integrity
+    private void addFollower(User u) {
+        if (u == null) return; // Check for null to prevent NullPointerException
+        if (!followers.contains(u)) {
+            followers.add(u);
+            followerCount++;
         }
     }
     
-    //unfollowing users
+    // Method to unfollow another user, also updates the followers list of the user being unfollowed
     public void unfollow(User u) {
-        if(following.contains(u) {
+        if (u == null) return; // Check for null to prevent NullPointerException
+        if (following.contains(u)) {
             following.remove(u);
             followingCount--;
-            u.followerCount--;
+            u.removeFollower(this); // Invoke method to remove follower
         }
     }
     
     //removing a follower
     public void removeFollower(User u) {
+        if (u == null) return; // Check for null to prevent NullPointerException
         if(followers.contains(u)) {
             followers.remove(u);
             u.unfollow(this);
@@ -64,4 +75,5 @@ public class User {
         return String.format("First name is %s, last name is %s, follower count is %d, and following count is %d", this.firstName, this.lastName, followerCount, followingCount);
     }
 }
-    
+
+

@@ -21,6 +21,8 @@ public class Person {
         return "Person " + name + " with id " + id;
     }
 	
+
+	//this method should ideally be in a seperate class
 	public static void main(String[] args) {
 		Person Jim= new Person("Jim");
 		Person Sarah= new Person("Sarah");
